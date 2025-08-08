@@ -106,7 +106,6 @@ function preloadSounds() {
 }
 
 let currentStationBtn = null;
-let isPausedByUser = false; // To track if pause was intentional
 let hls = null;
 let metadataInterval = null;
 let lastTrackInfo = '';
@@ -301,15 +300,14 @@ function playStation(button) {
     
     // If clicking the same station that is already playing, pause it.
     if (currentStationBtn === button && !audioPlayer.paused) {
-        isPausedByUser = true;
         audioPlayer.pause();
-        playerStatusEl.textContent = 'Pausado';
+        playerStatusEl.textContent = 'Selecciona una emisora';
+        stationNameEl.textContent = '';
         button.classList.remove('playing');
+        currentStationBtn = null;
         stopRDSUpdates();
         return;
     }
-
-    isPausedByUser = false;
 
     // Play dial sound on station change
     playRandomDialSound();
@@ -355,7 +353,7 @@ function playStation(button) {
             hls.loadSource(url);
             hls.attachMedia(audioPlayer);
             hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                audioPlayer.play().catch(e => console.error("Error on play after manifest parsed", e));
+                audioPlayer.play();
             });
             hls.on(Hls.Events.ERROR, function (event, data) {
                  if (data.fatal) {
@@ -385,19 +383,6 @@ function playStation(button) {
     
     button.classList.add('playing');
     currentStationBtn = button;
-
-    // Media Session API
-    if ('mediaSession' in navigator) {
-        const activeCategory = document.querySelector('.category-btn.active').textContent;
-        navigator.mediaSession.metadata = new MediaMetadata({
-            title: name,
-            artist: "Radio FM",
-            album: activeCategory,
-            artwork: [
-                { src: 'radio_icon.png', sizes: '512x512', type: 'image/png' },
-            ]
-        });
-    }
 }
 
 categorySelector.addEventListener('click', (e) => {
@@ -416,54 +401,6 @@ stationGrid.addEventListener('click', (e) => {
         playStation(button);
     }
 });
-
-// Media Session API handlers
-if ('mediaSession' in navigator) {
-    navigator.mediaSession.setActionHandler('play', () => {
-        if (audioPlayer.paused && currentStationBtn) {
-            isPausedByUser = false;
-            audioPlayer.play();
-            currentStationBtn.classList.add('playing');
-            playerStatusEl.textContent = "En directo";
-        }
-    });
-
-    navigator.mediaSession.setActionHandler('pause', () => {
-        if (!audioPlayer.paused) {
-            isPausedByUser = true;
-            audioPlayer.pause();
-            if(currentStationBtn) currentStationBtn.classList.remove('playing');
-            playerStatusEl.textContent = 'Pausado';
-        }
-    });
-
-    navigator.mediaSession.setActionHandler('previoustrack', () => {
-        playRandomDialSound();
-        playPreviousStation();
-    });
-
-    navigator.mediaSession.setActionHandler('nexttrack', () => {
-        playRandomDialSound();
-        playNextStation();
-    });
-
-    audioPlayer.addEventListener('play', () => {
-        navigator.mediaSession.playbackState = 'playing';
-        if (currentStationBtn) {
-            currentStationBtn.classList.add('playing');
-        }
-    });
-    
-    audioPlayer.addEventListener('pause', () => {
-        navigator.mediaSession.playbackState = 'paused';
-        if (currentStationBtn) {
-            currentStationBtn.classList.remove('playing');
-        }
-        if (!isPausedByUser) {
-             playerStatusEl.textContent = 'Stream interrumpido';
-        }
-    });
-}
 
 // Load initial category
 document.addEventListener('DOMContentLoaded', () => {
