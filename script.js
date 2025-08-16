@@ -1,10 +1,10 @@
 const stations = {
     noticias: [
         { name: "RNE 1", url: "https://rtvelivestream.rtve.es/rtvesec/rne/rne_r1_main.m3u8?hdnts=exp%3D1748019895~hmac%3D2a1afc7266d782a7233dd67867a44a14096cdab1a0cb35e8cad6e4989ee8e99c&idasset=1712486" },
-        { name: "Cadena SER", url: "https://27943.live.streamtheworld.com/CADENASERAAC_SC" },
+        { name: "Cadena SER", url: "https://25253.live.streamtheworld.com/SER_ASO_ASTURIASAAC.aac?gdpr=1&gdpr_consent=CQWPeQAQWPeQAAHABBENB3FsAP_gAAAAAAAALdNR_G__bXlr-b736ftkeYxf9_hr7sQxBgbJk24FzLvW_JwW32E7NAzatqYKmRIAu3TBIQNlHJDURVCgKIgVrzDMaEyUoTtKJ6BkiFMRY2JYCFxvm4tjeQCY5vr991d9mR-N7dr83dzyy6hnv3a9_-S1WJCdIYetDfv8ZBKT-9IE9_x8v4v4_N7pE2-eS1n_tGvp6D9-Yvv_dB399_baffzPn__rl_e_X__f_n37v943X77_____f_8AAAAxKADAAEFuikAGAAILdDoAMAAQW6IQAYAAgt0EgAwABBbotABgACC3QAAA.f_wAAAAAAAAA&dist=cadenaser-web-tod-permanente&ppid=04744714594863075680346150165867469177&pname=TDSdk&pversion=2.9&swm=false&tdsdk=js-2.9&banners=none&burst-time=15&sbmid=83258aa1-cf0e-4bd8-97ca-eec45303f3c0" },
         { name: "Onda Cero", url: "https://atres-live.ondacero.es/live/delegaciones/oc/oviedo/bitrate_1.m3u8" },
         { name: "esRadio", url: "https://libertaddigital-radio-live1.flumotion.com/libertaddigital/ld-live1-low.mp3" },
-        { name: "RNE 5", url: "https://rtvelivestream.rtve.es/rtvesec/rne/rne_r5_madrid_main.m3u8?hdnts=exp%3D1748020449~hmac%3D7b9550393e06ce9bf76c1e185822f0d9c6e22bb078b962928156dca70c1d70e5&idasset=1712404" },
+        { name: "RNE 5", url: "https://f131.rndfnk.com/star/crtve/rne5/ast/aac/128/stream.aac?cid=01GEP5NMGE0GPSP2ST3FT47FGD&sid=31MvAPpnLuTMCkLGBOVvNSV32lE&token=ReaYBE_tHy1K9cSwCJEH7Uz-oBXR_CAiR0i7Sn5mZDk&tvf=sfsHnhZSXBhmMTMxLnJuZGZuay5jb20" },
         { name: "COPE", url: "https://flucast07-h-cloud.flumotion.com/cope/net1.mp3" },
         { name: "CNN en Español", url: "https://tunein.cdnstream1.com/3517_96.aac/playlist.m3u8?listeningSessionID=6872e18f0185c672_1780498_XI1R1n3n_NjYuODUuODguNTo4MA!!_0000001aGzU&downloadSessionID=0" },
         { name: "RPA", url: "https://cdn-rtpa.watchity.net/wct-3545e416-1a16-44b5-b0db-481136ecacc9/continuous/7be5c015-1da2-4927-a49b-8d232faa69be/radio/media_0.m3u8" },
