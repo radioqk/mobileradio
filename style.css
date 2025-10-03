@@ -79,7 +79,7 @@ header h1 {
 
 #player-status {
     color: var(--text-muted);
-    font-size: clamp(0.8rem, 2.3vw, 1rem); /* Increased font size */
+    font-size: clamp(0.8rem, 2.3vw, 1rem);
     transition: all 0.3s ease;
     min-height: 20px;
     display: flex;
@@ -243,6 +243,10 @@ header h1 {
     transform: scale(1.1);
 }
 
+.nav-btn:active, .nav-btn.active-media {
+    transform: scale(0.9);
+}
+
 .nav-btn:active {
     transform: scale(0.9);
 }
@@ -332,4 +336,15 @@ header h1 {
     #station-nav {
         top: 15px; /* Also adjust for mobile viewports */
     }
+}
+
+#station-name {
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
+    color: var(--text-color);
+    font-weight: 500;
+    opacity: 0.8;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -1,10 +1,10 @@
 const stations = {
     noticias: [
-        { name: "RNE 1", url: "https://rnelivestream.rtve.es/rne1/ast/48/seglist.m3u8" },
-        { name: "Cadena SER", url: "https://25253.live.streamtheworld.com/SER_ASO_ASTURIASAAC.aac?gdpr=1&gdpr_consent=CQWPeQAQWPeQAAHABBENB3FsAP_gAAAAAAAALdNR_G__bXlr-b736ftkeYxf9_hr7sQxBgbJk24FzLvW_JwW32E7NAzatqYKmRIAu3TBIQNlHJDURVCgKIgVrzDMaEyUoTtKJ6BkiFMRY2JYCFxvm4tjeQCY5vr991d9mR-N7dr83dzyy6hnv3a9_-S1WJCdIYetDfv8ZBKT-9IE9_x8v4v4_N7pE2-eS1n_tGvp6D9-Yvv_dB399_baffzPn__rl_e_X__f_n37v943X77_____f_8AAAAxKADAAEFuikAGAAILdDoAMAAQW6IQAYAAgt0EgAwABBbotABgACC3QAAA.f_wAAAAAAAAA&dist=cadenaser-web-tod-permanente&ppid=04744714594863075680346150165867469177&pname=TDSdk&pversion=2.9&swm=false&tdsdk=js-2.9&banners=none&burst-time=15&sbmid=83258aa1-cf0e-4bd8-97ca-eec45303f3c0" },
+        { name: "RNE 1", url: "https://rtvelivestream.rtve.es/rtvesec/rne/rne_r1_main.m3u8?hdnts=exp%3D1748019895~hmac%3D2a1afc7266d782a7233dd67867a44a14096cdab1a0cb35e8cad6e4989ee8e99c&idasset=1712486" },
+        { name: "Cadena SER", url: "https://27943.live.streamtheworld.com/CADENASERAAC_SC" },
         { name: "Onda Cero", url: "https://atres-live.ondacero.es/live/delegaciones/oc/oviedo/bitrate_1.m3u8" },
         { name: "esRadio", url: "https://libertaddigital-radio-live1.flumotion.com/libertaddigital/ld-live1-low.mp3" },
-        { name: "RNE 5", url: "https://f131.rndfnk.com/star/crtve/rne5/ast/aac/128/stream.aac?cid=01GEP5NMGE0GPSP2ST3FT47FGD&sid=31MvAPpnLuTMCkLGBOVvNSV32lE&token=ReaYBE_tHy1K9cSwCJEH7Uz-oBXR_CAiR0i7Sn5mZDk&tvf=sfsHnhZSXBhmMTMxLnJuZGZuay5jb20" },
+        { name: "RNE 5", url: "https://rtvelivestream.rtve.es/rtvesec/rne/rne_r5_madrid_main.m3u8?hdnts=exp%3D1748020449~hmac%3D7b9550393e06ce9bf76c1e185822f0d9c6e22bb078b962928156dca70c1d70e5&idasset=1712404" },
         { name: "COPE", url: "https://flucast07-h-cloud.flumotion.com/cope/net1.mp3" },
         { name: "CNN en Español", url: "https://tunein.cdnstream1.com/3517_96.aac/playlist.m3u8?listeningSessionID=6872e18f0185c672_1780498_XI1R1n3n_NjYuODUuODguNTo4MA!!_0000001aGzU&downloadSessionID=0" },
         { name: "RPA", url: "https://cdn-rtpa.watchity.net/wct-3545e416-1a16-44b5-b0db-481136ecacc9/continuous/7be5c015-1da2-4927-a49b-8d232faa69be/radio/media_0.m3u8" },
@@ -35,7 +35,7 @@ const stations = {
         { name: "Radio Klara (València 104.4 FM)", url: "https://cervera.eldialdigital.com:21111/stream" },
         { name: "Radio Kras (Xixón 105.0 FM)", url: "http://giss.tv:8000/RadioKras.mp3" },
         { name: "Radio Espiritrompa (Alto Aragón 102.2 FM)", url: "https://radiobot.radioslibres.info/listen/radio_espiritrompa/radio.mp3?refresh=1754143322256" },
-        { name: "Radio QK (Uviéu 107.2 FM)", url: "https://icecast.radioqk.org:8443/radioqk_master.mp3" },
+        { name: "Radio QK (Uviéu 107.2 FM)", url: "http://212.231.231.169:8000/radioqk_master.mp3" },
         { name: "Radio Guiniguada (Las Palmas de Gran Canaria 89.4 FM)", url: "https://streamtotal.net/proxy/guiniguada/;" },
         { name: "Radio Almaina (Ganada 88.5 FM)", url: "https://radiobot.radioslibres.info/listen/radio_almaina/radio.mp3" },
     ],
@@ -46,6 +46,45 @@ const stationGrid = document.getElementById('station-grid');
 const audioPlayer = document.getElementById('audio-player');
 const playerStatusEl = document.getElementById('player-status');
 const stationNameEl = document.getElementById('station-name');
+
+const stationInfoFormat = "{description}";
+
+const fallbackText = "Transmisión en directo";
+
+const enableMetadataExtraction = true;
+
+const metadataUpdateDelay = 5000;
+
+const showBitrate = true;
+
+const extraMetadataFormat = "({listeners} oyentes • {quality})";
+
+const includeTrackInfo = false;
+
+const showStreamFormat = false;
+
+const showListenerCount = true;
+
+/* @tweakable Format for Media Session title. Use placeholders like {station}, {artist}, {title}. */
+const mediaSessionTitleFormat = "{station}";
+/* @tweakable Format for Media Session artist. Use placeholders like {program}, {artist}, {title}. */
+const mediaSessionArtistFormat = "{description}";
+/* @tweakable Format for Media Session album. Use placeholders like {category}, {genre}. */
+const mediaSessionAlbumFormat = "{category}";
+
+const allMetadataVariables = {
+    station: 'Station name',
+    artist: 'Current artist',
+    title: 'Current song title',
+    program: 'Program/show name',
+    genre: 'Music genre',
+    bitrate: 'Bitrate (kbps)',
+    description: 'Station description',
+    listeners: 'Number of current listeners',
+    server_type: 'Streaming format (MP3/AAC/Ogg)',
+    samplerate: 'Sample rate (Hz)',
+    quality: 'Quality level (High/Medium/Low)'
+};
 
 let audioContext = null;
 const dialSounds = [
@@ -90,6 +129,14 @@ function playSound(buffer) {
     source.buffer = buffer;
     source.connect(audioContext.destination);
     source.start(0);
+}
+
+function mediaButtonFeedback(buttonId) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+        button.classList.add('active-media');
+        setTimeout(() => button.classList.remove('active-media'), 200);
+    }
 }
 
 async function playRandomDialSound() {
@@ -157,8 +204,11 @@ function playNextStation() {
     const nextStation = shuffledStations[nextIndex];
     
     // Switch to the category of the next station
-    document.querySelector('.category-btn.active').classList.remove('active');
-    document.querySelector(`[data-category="${nextStation.category}"]`).classList.add('active');
+    const currentCategoryEl = document.querySelector('.category-btn.active');
+    if(currentCategoryEl) currentCategoryEl.classList.remove('active');
+    
+    const nextCategoryEl = document.querySelector(`[data-category="${nextStation.category}"]`);
+    if(nextCategoryEl) nextCategoryEl.classList.add('active');
     
     renderStations(nextStation.category);
     
@@ -204,8 +254,11 @@ function playPreviousStation() {
     const prevStation = shuffledStations[prevIndex];
     
     // Switch to the category of the previous station
-    document.querySelector('.category-btn.active').classList.remove('active');
-    document.querySelector(`[data-category="${prevStation.category}"]`).classList.add('active');
+    const currentCategoryEl = document.querySelector('.category-btn.active');
+    if(currentCategoryEl) currentCategoryEl.classList.remove('active');
+    
+    const nextCategoryEl = document.querySelector(`[data-category="${prevStation.category}"]`);
+    if(nextCategoryEl) nextCategoryEl.classList.add('active');
     
     renderStations(prevStation.category);
     
@@ -220,8 +273,14 @@ function playPreviousStation() {
 }
 
 // Add event listeners for navigation buttons
-document.getElementById('next-station').addEventListener('click', playNextStation);
-document.getElementById('prev-station').addEventListener('click', playPreviousStation);
+document.getElementById('next-station').addEventListener('click', () => {
+    mediaButtonFeedback('next-station');
+    playNextStation();
+});
+document.getElementById('prev-station').addEventListener('click', () => {
+    mediaButtonFeedback('prev-station');
+    playPreviousStation();
+});
 
 function renderStations(category) {
     stationGrid.innerHTML = '';
@@ -235,15 +294,183 @@ function renderStations(category) {
     });
 }
 
+function updateMediaSession(metadata) {
+    if (!('mediaSession' in navigator)) return;
+
+    const activeCategoryEl = document.querySelector('.category-btn.active');
+    const categoryName = activeCategoryEl ? activeCategoryEl.textContent : 'Radio';
+
+    const fullMetadata = {
+        station: stationNameEl.textContent || 'Radio',
+        category: categoryName,
+        ...metadata
+    };
+
+    const title = mediaSessionTitleFormat.replace(/{(\w+)}/g, (match, key) => fullMetadata[key] || '');
+    const artist = mediaSessionArtistFormat.replace(/{(\w+)}/g, (match, key) => fullMetadata[key] || '');
+    const album = mediaSessionAlbumFormat.replace(/{(\w+)}/g, (match, key) => fullMetadata[key] || '');
+    
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: title || 'Radio',
+        artist: artist || 'En Directo',
+        album: album || 'FM',
+        artwork: [
+            { src: 'artwork-96.png', sizes: '96x96', type: 'image/png' },
+            { src: 'artwork-128.png', sizes: '128x128', type: 'image/png' },
+            { src: 'artwork-192.png', sizes: '192x192', type: 'image/png' },
+            { src: 'artwork-256.png', sizes: '256x256', type: 'image/png' },
+            { src: 'artwork-384.png', sizes: '384x384', type: 'image/png' },
+            { src: 'artwork-512.png', sizes: '512x512', type: 'image/png' },
+        ]
+    });
+}
+
 function updateRDSMetadata() {
     if (!audioPlayer.src || audioPlayer.paused) return;
     
-    // Try to fetch metadata from various sources
     const url = audioPlayer.src;
+    const stationName = stationNameEl.textContent;
     
-    // For icecast/shoutcast streams
-    if (url.includes('icecast') || url.includes('shoutcast') || url.includes('.mp3') || url.includes('.aac')) {
-        // Fetch metadata from icecast/shoutcast
+    if (!enableMetadataExtraction) {
+        updateTrackInfo(stationInfoFormat
+            .replace('{station}', stationName)
+            .replace('{program}', fallbackText)
+            .replace('{genre}', 'Variedad')
+            .replace('{bitrate}', '')
+            .replace('{description}', fallbackText)
+            .replace('{artist}', '')
+            .replace('{title}', '')
+            .replace('{listeners}', '')
+            .replace('{server_type}', '')
+            .replace('{samplerate}', '')
+            .replace('{quality}', ''));
+        return;
+    }
+    
+    // Custom metadata extraction based on station type
+    if (url.includes('rtve.es')) {
+        // For RTVE stations (RNE1, RNE3, RNE5)
+        const program = 'Programa en directo';
+        const genre = 'Variedad';
+        const bitrate = '';
+        const description = 'Programa en directo';
+        const artist = '';
+        const title = '';
+        const listeners = '';
+        const server_type = 'MP3';
+        const samplerate = '';
+        const quality = 'High';
+        
+        let displayText = stationInfoFormat
+            .replace('{station}', stationName)
+            .replace('{program}', program)
+            .replace('{genre}', genre)
+            .replace('{bitrate}', bitrate)
+            .replace('{description}', description)
+            .replace('{artist}', artist)
+            .replace('{title}', title)
+            .replace('{listeners}', listeners)
+            .replace('{server_type}', server_type)
+            .replace('{samplerate}', samplerate)
+            .replace('{quality}', quality)
+            .trim();
+                    
+        updateTrackInfo(displayText);
+        updateMediaSession({ program, genre, bitrate, description, artist, title, listeners, server_type, samplerate, quality });
+        
+        const extraInfo = extraMetadataFormat
+            .replace('{listeners}', listeners)
+            .replace('{server_type}', showStreamFormat ? server_type : '')
+            .replace('{samplerate}', samplerate)
+            .replace('{quality}', quality)
+            .replace(/\( • \)|\(\)/g, '')
+            .trim();
+            
+        if (extraInfo && extraInfo !== '()' && extraInfo !== '') {
+            displayText += ` ${extraInfo}`;
+        }
+        
+        displayText = displayText.replace(/\s+/g, ' ').trim();
+        updateTrackInfo(displayText);
+    } else if (url.includes('ser')) {
+        // Cadena SER
+        const program = fallbackText;
+        const genre = 'Variedad';
+        const bitrate = '';
+        const description = 'Programa en directo';
+        const artist = '';
+        const title = '';
+        const listeners = '';
+        const server_type = 'AAC';
+        const samplerate = '';
+        const quality = 'High';
+        
+        updateTrackInfo(stationInfoFormat
+            .replace('{station}', stationName)
+            .replace('{program}', program)
+            .replace('{genre}', genre)
+            .replace('{bitrate}', bitrate)
+            .replace('{description}', description)
+            .replace('{artist}', artist)
+            .replace('{title}', title)
+            .replace('{listeners}', listeners)
+            .replace('{server_type}', server_type)
+            .replace('{samplerate}', samplerate)
+            .replace('{quality}', quality));
+    } else if (url.includes('los40')) {
+        // Los 40
+        const program = 'Programación en directo';
+        const genre = 'Variedad';
+        const bitrate = '';
+        const description = 'Programa en directo';
+        
+        updateTrackInfo(stationInfoFormat
+            .replace('{station}', stationName)
+            .replace('{program}', program)
+            .replace('{genre}', genre)
+            .replace('{bitrate}', bitrate)
+            .replace('{description}', description));
+    } else if (url.includes('cadenadial')) {
+        // Cadena Dial
+        const program = fallbackText;
+        const genre = 'Variedad';
+        const bitrate = '';
+        const description = 'Señal en directo';
+        
+        updateTrackInfo(stationInfoFormat
+            .replace('{station}', stationName)
+            .replace('{program}', program)
+            .replace('{genre}', genre)
+            .replace('{bitrate}', bitrate)
+            .replace('{description}', description));
+    } else if (url.includes('ondacero')) {
+        // Onda Cero
+        const program = fallbackText;
+        const genre = 'Variedad';
+        const bitrate = '';
+        const description = 'Programa en directo';
+        
+        updateTrackInfo(stationInfoFormat
+            .replace('{station}', stationName)
+            .replace('{program}', program)
+            .replace('{genre}', genre)
+            .replace('{bitrate}', bitrate)
+            .replace('{description}', description));
+    } else if (url.includes('rockfm')) {
+        // Rock FM
+        const program = fallbackText;
+        const genre = 'Variedad';
+        const bitrate = '';
+        const description = 'Directo';
+        
+        updateTrackInfo(stationInfoFormat
+            .replace('{station}', stationName)
+            .replace('{program}', program)
+            .replace('{genre}', genre)
+            .replace('{bitrate}', bitrate)
+            .replace('{description}', description));
+    } else if (url.includes('icecast') || url.includes('shoutcast') || url.includes('.mp3') || url.includes('.aac')) {
+        // Enhanced icecast/shoutcast metadata
         const metadataUrl = url.replace(/\/[^/]*$/, '/status-json.xsl');
         
         fetch(metadataUrl)
@@ -251,25 +478,100 @@ function updateRDSMetadata() {
             .then(data => {
                 if (data && data.icestats && data.icestats.source) {
                     const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
-                    const trackInfo = source.description || source.title || source.songtitle || source.genre || 'En directo';
-                    updateTrackInfo(trackInfo);
+                    
+                    // Extract artist and title from stream_title if available
+                    let artist = '';
+                    let title = '';
+                    if (source.title) {
+                        const parts = source.title.split(' - ');
+                        if (parts.length > 1) {
+                            artist = parts[0].trim();
+                            title = parts.slice(1).join(' - ').trim();
+                        } else {
+                            title = parts[0].trim();
+                        }
+                    }
+                    
+                    const program = source.server_name || fallbackText;
+                    const genre = source.genre || 'Variedad';
+                    const bitrate = showBitrate && source.bitrate ? `${source.bitrate}kbps` : '';
+                    const description = source.server_description || fallbackText;
+                    const listeners = showListenerCount && source.listeners ? source.listeners : '';
+                    const server_type = source.server_type || (url.includes('.mp3') ? 'MP3' : 'AAC');
+                    const samplerate = source.samplerate || '';
+                    const quality = source.bitrate ? (source.bitrate > 192 ? 'High' : source.bitrate > 96 ? 'Medium' : 'Low') : 'Auto';
+                    
+                    let displayText = stationInfoFormat
+                        .replace('{station}', stationName)
+                        .replace('{program}', program)
+                        .replace('{genre}', genre)
+                        .replace('{bitrate}', bitrate)
+                        .replace('{description}', description)
+                        .replace('{artist}', artist)
+                        .replace('{title}', title)
+                        .replace('{listeners}', listeners)
+                        .replace('{server_type}', server_type)
+                        .replace('{samplerate}', samplerate)
+                        .replace('{quality}', quality)
+                        .trim();
+                    
+                    if (includeTrackInfo && artist && title) {
+                        displayText += ` - ${artist} - ${title}`;
+                    }
+                    
+                    updateTrackInfo(displayText);
+                    updateMediaSession({ program, genre, bitrate, description, artist, title, listeners, server_type, samplerate, quality });
+                    
+                    const extraInfo = extraMetadataFormat
+                        .replace('{listeners}', listeners)
+                        .replace('{server_type}', showStreamFormat ? server_type : '')
+                        .replace('{samplerate}', samplerate)
+                        .replace('{quality}', quality)
+                        .replace(/\( • \)|\(\)/g, '')
+                        .trim();
+                        
+                    if (extraInfo && extraInfo !== '()' && extraInfo !== '') {
+                        displayText += ` ${extraInfo}`;
+                    }
+                    
+                    displayText = displayText.replace(/\s+/g, ' ').trim();
+                    updateTrackInfo(displayText);
+                    return;
                 }
             })
             .catch(() => {
-                // Fallback to basic metadata
-                updateTrackInfo('En directo');
+                // Fallback with all variables available
+                const metadata = {
+                    program: fallbackText,
+                    genre: 'Variedad',
+                    bitrate: '',
+                    description: fallbackText,
+                    artist: '',
+                    title: '',
+                    listeners: '',
+                    server_type: '',
+                    samplerate: '',
+                    quality: ''
+                };
+                updateTrackInfo(stationInfoFormat
+                    .replace('{station}', stationName)
+                    .replace(/{(\w+)}/g, (match, key) => metadata[key] || '')
+                );
+                updateMediaSession(metadata);
             });
-    }
-    // For HLS streams
-    else if (url.includes('.m3u8')) {
-        // HLS metadata is limited, use station name
-        const currentStation = stations[currentStationBtn.dataset.category]?.find(s => s.url === url);
-        const trackInfo = currentStation?.description || 'En directo';
-        updateTrackInfo(trackInfo);
-    }
-    else {
-        // Default fallback
-        updateTrackInfo('En directo');
+    } else {
+        // Default enhanced display
+        const metadata = {
+            program: fallbackText,
+            genre: 'Variedad',
+            bitrate: '',
+            description: fallbackText
+        };
+        updateTrackInfo(stationInfoFormat
+            .replace('{station}', stationName)
+            .replace(/{(\w+)}/g, (match, key) => metadata[key] || '')
+        );
+        updateMediaSession(metadata);
     }
 }
 
@@ -284,7 +586,7 @@ function updateTrackInfo(info) {
 
 function startRDSUpdates() {
     if (metadataInterval) clearInterval(metadataInterval);
-    metadataInterval = setInterval(updateRDSMetadata, 5000);
+    metadataInterval = setInterval(updateRDSMetadata, metadataUpdateDelay);
 }
 
 function stopRDSUpdates() {
@@ -306,6 +608,9 @@ function playStation(button) {
         button.classList.remove('playing');
         currentStationBtn = null;
         stopRDSUpdates();
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = "paused";
+        }
         return;
     }
 
@@ -325,8 +630,10 @@ function playStation(button) {
 
     // Reset metadata display
     playerStatusEl.textContent = "Conectando...";
-    stationNameEl.textContent = name.toUpperCase();
+    stationNameEl.textContent = name;
     lastTrackInfo = '';
+
+    updateMediaSession({ description: 'Conectando...' });
 
     // Handle metadata updates
     audioPlayer.addEventListener('loadedmetadata', () => {
@@ -334,17 +641,19 @@ function playStation(button) {
         startRDSUpdates();
     });
 
-    audioPlayer.addEventListener('loadstart', () => {
-        playerStatusEl.textContent = "Conectando...";
-    });
-
     // Handle track changes
     audioPlayer.addEventListener('play', () => {
         startRDSUpdates();
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = "playing";
+        }
     });
 
     audioPlayer.addEventListener('pause', () => {
         stopRDSUpdates();
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = "paused";
+        }
     });
 
     if (url.includes('.m3u8')) {
@@ -359,7 +668,7 @@ function playStation(button) {
                  if (data.fatal) {
                     console.error('Error fatal de HLS:', data);
                     playerStatusEl.textContent = 'Error';
-                    stationNameEl.textContent = 'STREAM NO DISPONIBLE';
+                    stationNameEl.textContent = 'Stream no disponible';
                  }
             });
         } else if (audioPlayer.canPlayType('application/vnd.apple.mpegurl')) {
@@ -369,7 +678,7 @@ function playStation(button) {
         } else {
             console.error("HLS no es soportado en este navegador.");
             playerStatusEl.textContent = 'Error';
-            stationNameEl.textContent = 'FORMATO NO SOPORTADO';
+            stationNameEl.textContent = 'Formato no soportado';
             return;
         }
     } else {
@@ -377,7 +686,7 @@ function playStation(button) {
         audioPlayer.play().catch(error => {
             console.error("Error al reproducir la radio:", error);
             playerStatusEl.textContent = 'Error';
-            stationNameEl.textContent = 'NO SE PUEDE REPRODUCIR';
+            stationNameEl.textContent = 'No se puede reproducir';
         });
     }
     
@@ -406,3 +715,24 @@ stationGrid.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     renderStations('noticias');
 });
+
+if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('play', () => {
+        if (audioPlayer.paused && currentStationBtn) {
+            playStation(currentStationBtn);
+        }
+    });
+    navigator.mediaSession.setActionHandler('pause', () => {
+        if (!audioPlayer.paused) {
+            audioPlayer.pause();
+        }
+    });
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+        mediaButtonFeedback('prev-station');
+        playPreviousStation();
+    });
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+        mediaButtonFeedback('next-station');
+        playNextStation();
+    });
+}
