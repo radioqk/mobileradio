@@ -156,7 +156,8 @@ header h1 {
 #station-grid {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: clamp(8px, 1.5vw, 15px);
     padding: 10px;
     overflow-y: auto;
@@ -277,7 +278,8 @@ header h1 {
     }
 
     #station-grid {
-        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
         gap: 6px;
         padding: 10px 5px;
     }
