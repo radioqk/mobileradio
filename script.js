@@ -33,7 +33,7 @@ const stations = {
         { name: "Radio Vallekas (107.5 FM)", url: "https://radio.radiobot.org/listen/rvk/rvk.mp3" },
         { name: "Radio Topo (Zaragoza 101.8 FM)", url: "https://radiobot.radioslibres.info/listen/radio_topo/radio96.mp3" },
         { name: "Radio Klara (València 104.4 FM)", url: "https://cervera.eldialdigital.com:21111/stream" },
-        { name: "Radio Kras (Xixón 105.0 FM)", url: "http://giss.tv:8000/RadioKras.mp3" },
+        { name: "Radio Kras (Xixón 105.0 FM)", url: "https://giss.tv:666/RadioKras.mp3" },
         { name: "Radio Espiritrompa (Alto Aragón 102.2 FM)", url: "https://radiobot.radioslibres.info/listen/radio_espiritrompa/radio.mp3?refresh=1754143322256" },
         { name: "Radio QK (Uviéu 107.2 FM)", url: "https://icecast.radioqk.org:8443/radioqk_master.mp3" },
         { name: "Radio Guiniguada (Las Palmas de Gran Canaria 89.4 FM)", url: "https://streamtotal.net/proxy/guiniguada/;" },
